@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<script type="text/javascript" src="Brython-3.4.0/brython.js"></script>
+
+<script id="python_script" type="text/python">
+from browser import document, alert
+import turtle
+
+@document["run"].bind("click")
+def show(ev):
+    _code = document["pre-src"].text + document["user-src"].text
+    exec(_code)
+
+@document["clear"].bind("click")
+def clear(ev):
+    turtle.restart()
+</script>
+
+<style>
+  pre {
+    border: 1px solid blue;
+    background-color: antiquewhite;
+  }
+  button {
+    margin: 20px;
+    padding: 10px;
+  }
+</style>
+
+</head>
+
+<body onload="brython(1)">
+<h1>Cible</h1>
+<p><button id="run">Exécuter</button> <button id="clear">Réinitialiser</button></p>
+
+<pre id="pre-src" style="display: none;">
+turtle.set_defaults(
+    canvwidth = 600,
+    canvheight = 600,
+    turtle_canvas_wrapper = document['turtle-div']
+   # , turtle_canvas_id = 'turtle-canvas' # default, could be overriden
+  )
+# Espace de jeu
+taille = 400
+
+def pas_trop_loin(tortue):
+    return tortue.xcor() >= -taille and \
+           tortue.xcor() <=  taille and \
+           tortue.ycor() >= -taille and \
+           tortue.ycor() <=  taille
+
+def lancer_animation():
+    turtle.show()
+
+# Grille
+#c = turtle.getcanvas()
+#i = -taille
+#while i <= taille:
+#    c.create_line(-400, i, 400, i, width=1, fill="yellow")
+#    c.create_line(i, -400, i, 400, width=1, fill="yellow")
+#    i = i + 10
+
+# Mise en place des tortues
+tortue_noire = turtle.Turtle()
+tortue_noire.shape("turtle")
+tortue_noire.speed(10)
+tortue_noire.goto(0, 0)
+
+tortue_rouge = turtle.Turtle()
+tortue_rouge.shapesize(0.01)
+tortue_rouge.pencolor("red")
+tortue_rouge.goto(0, 0)
+
+tortue_verte = turtle.Turtle()
+tortue_verte.shapesize(0.5)
+tortue_verte.shape("circle")
+tortue_verte.color("green")
+tortue_verte.penup()
+tortue_verte.goto(390, 300)
+
+</pre>
+<pre id="user-src" style="float:left" contenteditable="true">
+# Valeurs à changer
+deplacement_vers_la_droite = 10
+deplacement_vers_le_haut = 10
+
+# Déplacement
+while pas_trop_loin(tortue_noire):
+    tortue_noire.forward(deplacement_vers_la_droite)
+    tortue_noire.left(90)
+    tortue_noire.forward(deplacement_vers_le_haut)
+    tortue_noire.right(90)
+    tortue_rouge.goto(tortue_noire.position())
+
+lancer_animation()
+
+</pre>
+
+<span id="turtle-div" style="float:left;border:1px solid green; margin-left:50px;"> </span>
+</body>
+
+</html>
+
