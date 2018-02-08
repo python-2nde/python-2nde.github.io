@@ -66,19 +66,27 @@ def lancer_animation():
 # Mise en place des tortues
 tortue_noire = turtle.Turtle()
 tortue_noire.shape("turtle")
-tortue_noire.goto(0, 0)
+tortue_noire.penup()
+tortue_noire.speed(10)
+tortue_noire.goto(-290, 290)
+tortue_noire.speed(1)
+tortue_noire.pendown()
 
 tortue_rouge = turtle.Turtle()
 tortue_rouge.shapesize(0.01)
 tortue_rouge.pencolor("red")
-tortue_rouge.goto(0, 0)
+tortue_rouge.penup()
+tortue_rouge.speed(10)
+tortue_rouge.goto(-290, 290)
+tortue_rouge.speed(1)
+tortue_rouge.pendown()
 
 tortue_verte = turtle.Turtle()
-tortue_verte.shapesize(0.5)
+tortue_verte.shapesize(5)
 tortue_verte.shape("circle")
 tortue_verte.color("green")
 tortue_verte.penup()
-tortue_verte.goto(390, 300)
+tortue_verte.goto(0, 0)
 
 </pre>
 <pre id="user-src" style="float:left" contenteditable="true">
