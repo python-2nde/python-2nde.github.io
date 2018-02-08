@@ -1221,7 +1221,7 @@ class TNavigator:
         >>> turtle.heading()
         337.0
         """
-        self._rotate(-angle)
+        self._rotate(angle)
 
     def left(self, angle):
         """Turn turtle left by angle units.
@@ -1242,7 +1242,7 @@ class TNavigator:
         >>> turtle.heading()
         67.0
         """
-        self._rotate(angle)
+        self._rotate(-angle)
 
     def pos(self):
         """Return the turtle's current location (x,y), as a Vec2D-vector.
