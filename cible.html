@@ -66,7 +66,6 @@ def lancer_animation():
 # Mise en place des tortues
 tortue_noire = turtle.Turtle()
 tortue_noire.shape("turtle")
-tortue_noire.speed(10)
 tortue_noire.goto(0, 0)
 
 tortue_rouge = turtle.Turtle()
@@ -86,6 +85,9 @@ tortue_verte.goto(390, 300)
 # Valeurs à changer
 deplacement_vers_la_droite = 10
 deplacement_vers_le_haut = 10
+
+# Vitesse de 1 à 10
+tortue_noire.speed(1)
 
 # Déplacement
 while pas_trop_loin(tortue_noire):
