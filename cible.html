@@ -11,12 +11,10 @@ import turtle
 
 @document["run"].bind("click")
 def show(ev):
+    turtle.restart()
     _code = document["pre-src"].text + document["user-src"].text
     exec(_code)
 
-@document["clear"].bind("click")
-def clear(ev):
-    turtle.restart()
 </script>
 
 <style>
@@ -34,7 +32,7 @@ def clear(ev):
 
 <body onload="brython(1)">
 <h1>Cible</h1>
-<p><button id="run">Exécuter</button> <button id="clear">Réinitialiser</button></p>
+<p><button id="run">Exécuter</button></p>
 
 <pre id="pre-src" style="display: none;">
 import turtle
