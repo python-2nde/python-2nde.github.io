@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 
-<script type="text/javascript" src="Brython-3.4.0/brython.js"></script>
+<script type="text/javascript" src="brython/brython.js"></script>
 
 <script id="python_script" type="text/python">
 from browser import document, alert
@@ -37,6 +37,7 @@ def clear(ev):
 <p><button id="run">Exécuter</button> <button id="clear">Réinitialiser</button></p>
 
 <pre id="pre-src" style="display: none;">
+import turtle
 turtle.set_defaults(
     canvwidth = 600,
     canvheight = 600,
@@ -53,7 +54,7 @@ def pas_trop_loin(tortue):
            tortue.ycor() <=  taille
 
 def lancer_animation():
-    turtle.show()
+    turtle.done()
 
 # Grille
 #c = turtle.getcanvas()
