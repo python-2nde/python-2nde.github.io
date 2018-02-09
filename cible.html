@@ -45,7 +45,7 @@ turtle.set_defaults(
    # , turtle_canvas_id = 'turtle-canvas' # default, could be overriden
   )
 # Espace de jeu
-taille = 400
+taille = 300
 
 def pas_trop_loin(tortue):
     return tortue.xcor() >= -taille and \
@@ -69,17 +69,18 @@ tortue_noire = turtle.Turtle()
 tortue_noire.shape("turtle")
 tortue_noire.penup()
 tortue_noire.speed(10)
-tortue_noire.goto(-290, 290)
+tortue_noire.goto(-290, -290)
 tortue_noire.speed(1)
 tortue_noire.pendown()
 
 tortue_rouge = turtle.Turtle()
+tortue_rouge.hideturtle()
 tortue_rouge.shapesize(0.01)
 tortue_rouge.pencolor("red")
 tortue_rouge.penup()
 tortue_rouge.speed(10)
-tortue_rouge.goto(-290, 290)
-tortue_rouge.speed(1)
+tortue_rouge.goto(-290, -290)
+tortue_rouge.showturtle()
 tortue_rouge.pendown()
 
 tortue_verte = turtle.Turtle()
@@ -87,7 +88,7 @@ tortue_verte.shapesize(5)
 tortue_verte.shape("circle")
 tortue_verte.color("green")
 tortue_verte.penup()
-tortue_verte.goto(0, 0)
+tortue_verte.goto(90, 0)
 
 </pre>
 <pre id="user-src" style="float:left" contenteditable="true">
@@ -96,7 +97,7 @@ deplacement_vers_la_droite = 10
 deplacement_vers_le_haut = 10
 
 # Vitesse de 1 à 10
-tortue_noire.speed(1)
+tortue_noire.speed(5)
 
 # Déplacement
 while pas_trop_loin(tortue_noire):
@@ -104,7 +105,8 @@ while pas_trop_loin(tortue_noire):
     tortue_noire.left(90)
     tortue_noire.forward(deplacement_vers_le_haut)
     tortue_noire.right(90)
-    tortue_rouge.goto(tortue_noire.position())
+
+tortue_rouge.goto(tortue_noire.position())
 
 lancer_animation()
 
