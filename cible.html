@@ -9,10 +9,10 @@
 from browser import document, alert
 import turtle
 
-@document["run"].bind("click")
+@document['run'].bind('click')
 def show(ev):
     turtle.restart()
-    _code = document["pre-src"].text + document["user-src"].text
+    _code = document['pre-src'].text + document['user-src'].text
     exec(_code)
 
 </script>
