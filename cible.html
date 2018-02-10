@@ -15,6 +15,7 @@ def show(ev):
     _code = document['pre-src'].text + document['user-src'].text
     exec(_code)
 
+document['run'].text = "Exécuter"
 </script>
 
 <style>
@@ -32,7 +33,7 @@ def show(ev):
 
 <body onload="brython(1)">
 <h1>Cible</h1>
-<p><button id="run">Exécuter</button></p>
+<p><button id="run">Veuillez patienter…</button></p>
 
 <pre id="pre-src" style="display: none;">
 import turtle
