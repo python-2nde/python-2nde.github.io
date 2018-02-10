@@ -56,21 +56,22 @@ def lancer_animation():
     turtle.done()
 
 # Grille
-def create_line(x0, y0, x1, y1, width, fill):
-    t = turtle.Turtle()
-    t.speed(0)
-    t.hideturtle()
+t = turtle.Turtle()
+t.speed(0)
+t.hideturtle()
+t.width(1)
+t.color('yellow')
+
+def create_line(x0, y0, x1, y1):
     t.penup()
     t.goto(x0, y0)
     t.pendown()
-    t.width(width)
-    t.color(fill)
     t.goto(x1, y1)
 
 i = -taille
 while i <= taille:
-    create_line(-taille, i, taille, i, width=1, fill="yellow")
-    create_line(i, -taille, i, taille, width=1, fill="yellow")
+    create_line(-taille, i, taille, i)
+    create_line(i, -taille, i, taille)
     i = i + 10
 
 # Mise en place des tortues
