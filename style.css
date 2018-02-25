@@ -1,0 +1,10 @@
+pre {
+  border: 1px solid blue;
+  background-color: antiquewhite;
+  min-width: 800px;
+  min-height: 100px;
+}
+button {
+  margin: 20px;
+  padding: 10px;
+}
