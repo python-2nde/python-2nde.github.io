@@ -22,7 +22,39 @@ document['run'].text = "Exécuter"
 </head>
 
 <body onload="brython(1)">
-<h1>Cible</h1>
+<h1>Atteindre la cible</h1>
+<p>Plus bas sur cette page vous trouverez une zone pour coder en Python et une
+zone où se déplace une tortue.</p>
+<p>La tortue se trouve à droite du point rouge et est orientée vers la droite.<p>
+<p>Dans le programme, il y a trois commandes de déplacement de la tortue :<p>
+<ul>
+    <li><code>tortue_noire.forward</code> qui signifie avancer ;</li>
+    <li><code>tortue.noire.left(90)</code> qui signifie tourner à gauche ;</li>
+    <li><code>tortue.noire.right(90)</code> qui signifie tourner à droite.</li>
+</ul>
+
+<p>Lorsqu'on exécute le programme :</p>
+
+<ul>
+    <li>la tortue effectue un certain déplacement vers la droite, tourne à
+        gauche (elle s'oriente donc vers le haut), effectue un certain
+        déplacement vers le haut, puis tourne à droite (elle s'oriente donc
+        vers la droite)... jusqu'à atteindre le bord de la fenêtre ;</li>
+    <li>le trajet de la tortue est dessiné en noir ;</li>
+    <li>une ligne reliant le point rouge aux points où la tortue tourne à
+        droite est dessinée en rouge.</li>
+</ul>
+
+<h2>Exercice</h2>
+
+<ol>
+    <li>Dans le programme, modifiez les valeurs des déplacements vers la droite
+        et vers le haut (par exemple 8 et 12 au lieu de 10 et 10) de manière à
+        atteindre la cible verte avec la ligne rouge.</li>
+    <li>Une fois que vous avez réussi, notez les valeurs qui conviennent.</li>
+    <li>Recommencez et essayez de trouver d'autres valeurs qui conviennent.</li>
+</ol>
+
 <p><button id="run">Veuillez patienter…</button></p>
 
 <pre id="pre-src" style="display: none;">
