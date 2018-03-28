@@ -10,12 +10,20 @@
 from browser import document, alert
 import turtle
 
-@document['run'].bind('click')
-def show(ev):
+def setup():
     turtle.restart()
-    _code = document['pre-src'].text + document['user-src'].text
+    _code = document['pre-src'].text
     exec(_code)
 
+@document['run'].bind('click')
+def action(ev):
+    turtle.restart()
+    _code = document['user-src'].text
+    exec(_code)
+
+setup()
+
+# keep this line at the end (user notification)
 document['run'].text = "Exécuter"
 </script>
 
@@ -101,28 +109,13 @@ while i <= taille:
     i = i + 10
 
 # Mise en place des tortues
-tortue_noire = turtle.Turtle()
-tortue_noire.shape("turtle")
-tortue_noire.penup()
-tortue_noire.speed(0)
-tortue_noire.goto(-290, -290)
-tortue_noire.pendown()
-
-tortue_rouge = turtle.Turtle()
-tortue_rouge.shapesize(0.01)
-tortue_rouge.pencolor("red")
-tortue_rouge.penup()
-tortue_rouge.speed(0)
-tortue_rouge.goto(-290, -290)
-tortue_rouge.pendown()
-
 tortue_depart = turtle.Turtle()
 tortue_depart.shapesize(5)
 tortue_depart.shape("circle")
 tortue_depart.color("red")
 tortue_depart.penup()
 tortue_depart.speed(0)
-tortue_depart.goto(-290, -290)
+tortue_depart.goto(-290, -280)
 
 tortue_cible = turtle.Turtle()
 tortue_cible.shapesize(5)
@@ -130,17 +123,33 @@ tortue_cible.shape("circle")
 tortue_cible.color("green")
 tortue_cible.penup()
 tortue_cible.speed(0)
-tortue_cible.goto(90, 0)
+tortue_cible.goto(0, 90)
 
+tortue_noire = turtle.Turtle()
+tortue_noire.shape("turtle")
+tortue_noire.penup()
+tortue_noire.speed(0)
+tortue_noire.goto(-290, -280)
+tortue_noire.pendown()
+
+tortue_rouge = turtle.Turtle()
+tortue_rouge.shapesize(0.01)
+tortue_rouge.pencolor("red")
+tortue_rouge.penup()
+tortue_rouge.speed(0)
+tortue_rouge.goto(-290, -280)
+tortue_rouge.pendown()
+
+# Vitesse de 1 à 50, 0 pour le plus vite possible
+tortue_noire.speed(5)
+tortue_rouge.speed(5)
+
+turtle.done()
 </pre>
 <pre id="user-src" style="float:left" contenteditable="true">
 # Valeurs à changer
 deplacement_vers_la_droite = 10
 deplacement_vers_le_haut = 10
-
-# Vitesse de 1 à 50, 0 pour le plus vite possible
-tortue_noire.speed(5)
-tortue_rouge.speed(5)
 
 # Déplacement
 while pas_trop_loin(tortue_noire):
