@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type="text/javascript" src="brython/brython.js"></script>
+
+<script id="python_script" type="text/python">
+from browser import document, alert
+import turtle
+
+def setup():
+    turtle.restart()
+    _code = document['pre-src'].text
+    exec(_code)
+
+@document['run'].bind('click')
+def action(ev):
+    turtle.restart()
+    _code = document['pre-src'].text + document['user-src'].text
+    exec(_code)
+
+setup()
+
+# keep this line at the end (user notification)
+document['run'].text = "Exécuter"
+</script>
+
+</head>
+
+<body onload="brython(1)">
+<h1>Atteindre la cible (page 3)</h1>
+
+<p>Les six cibles sont nommées A, B, C, D, E et F, dans cet ordre et en partant
+du haut.</p>
+<p>Elles ont pour coordonnées :<p>
+<ul>
+<li>A(250, 390)</li>
+<li>B(250, 300)</li>
+<li>C(250, 200)</li>
+<li>D(250, 0)</li>
+<li>E(250, -100)</li>
+<li>F(250, -250)</li>
+</ul>
+<p>Le point de départ a pour coordonnées (20, 40).<p>
+
+<h2>Exercice</h2>
+
+<p>Pour chacune des 6 cibles :</p>
+
+<ul>
+    <li>déterminer le coefficient directeur de la droite passant par la cible
+        et le point rouge ;</li>
+    <li>tracer deux chemins reliant le point rouge à la cible en exécutant le
+        programme avec des valeurs bien choisies des variables
+        <code>deplacement_vers_la_droite</code> et
+        <code>deplacement_vers_le_haut</code> (noter les valeurs qui
+        fonctionnent sur le cahier de recherche).</li>
+</ul>
+
+<p><button id="run">Veuillez patienter…</button></p>
+
+<pre id="pre-src" style="display: none;">
+import turtle
+turtle.set_defaults(
+    canvwidth = 600,
+    canvheight = 600,
+    turtle_canvas_wrapper = document['turtle-div']
+   # , turtle_canvas_id = 'turtle-canvas' # default, could be overriden
+  )
+# Espace de jeu
+taille = 300
+x_pos_axe, y_pos_axe = 200, 200
+
+def pas_trop_loin(tortue):
+    return tortue.xcor() >= -taille and \
+           tortue.xcor() <=  taille and \
+           tortue.ycor() >= -taille and \
+           tortue.ycor() <=  taille
+
+def lancer_animation():
+    turtle.done()
+
+def deplacer(t, x, y):
+    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
+
+def deplacer_depart(x, y):
+    deplacer(tortue_depart, x, y)
+    deplacer(tortue_noire, x, y)
+    deplacer(tortue_rouge, x, y)
+
+# Grille
+t = turtle.Turtle()
+t.speed(0)
+t.hideturtle()
+t.width(1)
+t.color('yellow')
+
+def create_line(x0, y0, x1, y1):
+    t.penup()
+    t.goto(x0, y0)
+    t.pendown()
+    t.goto(x1, y1)
+
+i = -taille
+while i <= taille:
+    create_line(-taille, i, taille, i)
+    create_line(i, -taille, i, taille)
+    i = i + 10
+
+# Repere
+t.color('black')
+create_line(-taille, -taille + y_pos_axe, taille, -taille + y_pos_axe)
+create_line(-taille + x_pos_axe, -taille, -taille + x_pos_axe, taille)
+
+# Mise en place des tortues
+tortue_depart = turtle.Turtle()
+tortue_depart.shapesize(5)
+tortue_depart.shape("circle")
+tortue_depart.color("red")
+tortue_depart.penup()
+tortue_depart.speed(0)
+
+tortue_noire = turtle.Turtle()
+tortue_noire.shape("turtle")
+tortue_noire.penup()
+tortue_noire.speed(0)
+
+tortue_rouge = turtle.Turtle()
+tortue_rouge.shapesize(0.01)
+tortue_rouge.pencolor("red")
+tortue_rouge.penup()
+tortue_rouge.speed(0)
+
+deplacer_depart(20, 40)
+
+# les 6 cibles (merci patron)
+coords_cibles = (250, 390), \
+                (250, 300), \
+                (250, 200), \
+                (250, 0),   \
+                (250, -100), \
+                (250, -250)
+for coords in coords_cibles:
+    print(coords)
+    # cible = turtle.Turtle()
+    # cible.shapesize(5)
+    # cible.shape("circle")
+    # cible.color("green")
+    # cible.penup()
+    # cible.speed(0)
+    # deplacer(cible, x, y)
+
+# Vitesse de 1 à 50, 0 pour le plus vite possible
+tortue_noire.speed(5)
+tortue_rouge.speed(5)
+tortue_noire.pendown()
+tortue_rouge.pendown()
+
+turtle.done()
+</pre>
+<pre id="user-src" style="float:left" contenteditable="true">
+# Valeurs à changer
+deplacement_vers_la_droite = 10
+deplacement_vers_le_haut = 10
+
+# Déplacement
+while pas_trop_loin(tortue_noire):
+    tortue_noire.forward(deplacement_vers_la_droite)
+    tortue_noire.left(90)
+    tortue_noire.forward(deplacement_vers_le_haut)
+    tortue_noire.right(90)
+
+tortue_rouge.goto(tortue_noire.position())
+
+lancer_animation()
+
+</pre>
+
+<span id="turtle-div" style="float:left;border:1px solid green; margin-left:50px;"> </span>
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+</body>
+
+</html>
+
