@@ -18,7 +18,7 @@ def setup():
 @document['run'].bind('click')
 def action(ev):
     turtle.restart()
-    _code = document['user-src'].text
+    _code = document['pre-src'].text + document['user-src'].text
     exec(_code)
 
 setup()
