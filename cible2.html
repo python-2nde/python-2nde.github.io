@@ -44,6 +44,7 @@ turtle.set_defaults(
   )
 # Espace de jeu
 taille = 300
+x_pos_axe, y_pos_axe = 200, 200
 
 def pas_trop_loin(tortue):
     return tortue.xcor() >= -taille and \
@@ -55,7 +56,7 @@ def lancer_animation():
     turtle.done()
 
 def deplacer(t, x, y):
-    t.goto(x-300, y-300)
+    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
 def deplacer_depart(x, y):
     deplacer(tortue_depart, x, y)
@@ -83,6 +84,11 @@ while i <= taille:
     create_line(-taille, i, taille, i)
     create_line(i, -taille, i, taille)
     i = i + 10
+
+# Repere
+t.color('black')
+create_line(-taille, -taille + y_pos_axe, taille, -taille + y_pos_axe)
+create_line(-taille + x_pos_axe, -taille, -taille + x_pos_axe, taille)
 
 # Mise en place des tortues
 tortue_depart = turtle.Turtle()
