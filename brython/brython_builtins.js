@@ -1,22 +1,26 @@
-var __BRYTHON__=__BRYTHON__ || {}  // global object with brython built-ins
+var __BRYTHON__ = __BRYTHON__ || {}  // global object with brython built-ins
 
 ;(function($B) {
 
 // Detect whether we are in a Web Worker
-var isWebWorker = ('undefined' !== typeof WorkerGlobalScope) && ("function" === typeof importScripts) && (navigator instanceof WorkerNavigator)
+$B.isWebWorker = ('undefined' !== typeof WorkerGlobalScope) &&
+                  ("function" === typeof importScripts) &&
+                  (navigator instanceof WorkerNavigator)
 var _window = self;
-
 
 var $path
 
-if ($B.brython_path === undefined) {
+if($B.brython_path === undefined){
     // Get url of this script brython_builtins.js
     var this_url;
-    if (isWebWorker) {
+    if($B.isWebWorker){
         this_url = _window.location.href;
-    } else {
+        if(this_url.startsWith("blob:")){
+            this_url = this_url.substr(5)
+        }
+    }else{
         var scripts = document.getElementsByTagName('script')
-        this_url = scripts[scripts.length-1].src
+        this_url = scripts[scripts.length - 1].src
     }
 
 
@@ -24,54 +28,48 @@ if ($B.brython_path === undefined) {
     elts.pop()
     // brython_path is the url of the directory holding brython core scripts
     // It is used to import modules of the standard library
-    $path = $B.brython_path = elts.join('/')+'/'
-} else {
+    $path = $B.brython_path = elts.join('/') + '/'
+}else{
     $path = $B.brython_path
 }
 
 
 // Get the URL of the directory where the script stands
-var $href = $B.script_path = _window.location.href
-var $href_elts = $href.split('/')
-$href_elts.pop()
-var $script_dir = $B.script_dir = $href_elts.join('/')
+var path = _window.location.origin + _window.location.pathname,
+    path_elts = path.split("/")
+path_elts.pop()
+var $script_dir = $B.script_dir = path_elts.join("/")
 
 // Populated in py2js.brython(), used for sys.argv
 $B.__ARGV = []
 
+// For all the scripts defined in the page as webworkers, mapping between
+// script name and its source code
+$B.webworkers = {}
+
 // Mapping between a module name and its path (url)
 $B.$py_module_path = {}
+
+// File cache
+$B.file_cache = {}
 
 // Mapping between a Python module name and its source code
 $B.$py_src = {}
 
 // __BRYTHON__.path is the list of paths where Python modules are searched
-$B.path = [$path+'Lib', $path+'libs', $script_dir, $path+'Lib/site-packages']
-
-// Name bindings in scopes
-// Name "x" defined in a scope is a key of the dictionary
-// __BRYTHON__.bound[scope.id]
-$B.bound = {}
+$B.path = [$path + 'Lib', $path + 'libs', $script_dir,
+    $path + 'Lib/site-packages']
 
 // for the time being, a flag will be used to know if we should
 // enable async functionality.
-$B.async_enabled=false
-if ($B.async_enabled) $B.block = {}
-
-// Maps a module name to the matching module object
-// A module can be the body of a script, or the body of a block inside a
-// script, such as in exec() or in a comprehension
-$B.modules = {}
+$B.async_enabled = false
+if($B.async_enabled){$B.block = {}}
 
 // Maps the name of imported modules to the module object
 $B.imported = {}
 
-
 // Maps the name of modules to the matching Javascript code
-$B.module_source = {}
-
-// Distionary used to save the loval variables of a generator
-$B.vars = {}
+$B.precompiled = {}
 
 // Maps block names to a dictionary indexed by names defined as global
 // inside the block
@@ -81,92 +79,125 @@ $B._globals = {}
 $B.frames_stack = []
 
 // Python __builtins__
-$B.builtins = {
-    __repr__:function(){return "<module 'builtins>'"},
-    __str__:function(){return "<module 'builtins'>"},
-}
+$B.builtins = {}
 
-$B.builtins_block = {id:'__builtins__',module:'__builtins__'}
-$B.modules['__builtins__'] = $B.builtins_block
-$B.bound['__builtins__'] = {'__BRYTHON__':true, '$eval':true, '$open': true}
-$B.bound['__builtins__']['BaseException'] = true
+$B.builtins_scope = {id:'__builtins__', module:'__builtins__', binding:{}}
 
 // Builtin functions : used in py2js to simplify the code produced by a call
 $B.builtin_funcs = {}
 
+// Builtin classes
+$B.builtin_classes = []
+
 $B.__getattr__ = function(attr){return this[attr]}
 $B.__setattr__ = function(attr,value){
     // limited to some attributes
-    if(['debug', 'stdout', 'stderr'].indexOf(attr)>-1){$B[attr]=value}
-    else{throw $B.builtins.AttributeError('__BRYTHON__ object has no attribute '+attr)}
+    if(['debug', 'stdout', 'stderr'].indexOf(attr) > -1){$B[attr] = value}
+    else{
+        throw $B.builtins.AttributeError.$factory(
+            '__BRYTHON__ object has no attribute ' + attr)
+    }
 }
 
 // system language ( _not_ the one set in browser settings)
 // cf http://stackoverflow.com/questions/1043339/javascript-for-detecting-browser-language-preference
 $B.language = _window.navigator.userLanguage || _window.navigator.language
 
-if (isWebWorker) {
+$B.locale = "C" // can be reset by locale.setlocale
+
+if($B.isWebWorker){
     $B.charset = "utf-8"
-} else {
+}else{
     // document charset ; defaults to "utf-8"
     $B.charset = document.characterSet || document.inputEncoding || "utf-8"
 }
 
 // minimum and maximum safe integers
-$B.max_int = Math.pow(2,53)-1
+$B.max_int = Math.pow(2, 53) - 1
 $B.min_int = -$B.max_int
 
 // Used to compute the hash value of some objects (see
 // py_builtin_functions.js)
-$B.$py_next_hash = Math.pow(2,53)-1
+$B.$py_next_hash = Math.pow(2, 53) - 1
 
 // $py_UUID guarantees a unique id.  Do not use this variable
 // directly, use the $B.UUID function defined in py_utils.js
-$B.$py_UUID=0
+$B.$py_UUID = 0
 
 // Magic name used in lambdas
-$B.lambda_magic = Math.random().toString(36).substr(2,8)
-
-// Callback functions indexed by their name
-// Used to print a traceback if an exception is raised when the function
-// is triggered by a DOM event
-$B.callbacks = {}
+$B.lambda_magic = Math.random().toString(36).substr(2, 8)
 
 // Set __name__ attribute of klass methods
-$B.set_func_names = function(klass){
-    var name = klass.__name__
+$B.set_func_names = function(klass, module){
+    if(klass.$infos){
+        var name = klass.$infos.__name__
+        klass.$infos.__module__ = module
+        klass.$infos.__qualname__ = name
+    }else{
+        var name = klass.__name__
+        console.log("bizarre", klass)
+        klass.$infos = {
+            __name__: name,
+            __module__: module,
+            __qualname__: name
+        }
+    }
+    klass.__module__ = module
     for(var attr in klass){
         if(typeof klass[attr] == 'function'){
-            klass[attr].$infos = {__qualname__ : name+'.'+attr, __name__:attr}
+            klass[attr].$infos = {
+                __doc__: klass[attr].__doc__ || "",
+                __module__: module,
+                __qualname__ : name + '.' + attr,
+                __name__: attr
+            }
+            if(klass[attr].$type == "classmethod"){
+                klass[attr].__class__ = $B.method
+            }
         }
     }
 }
 
-var has_storage = typeof(Storage)!=="undefined"
+var has_storage = typeof(Storage) !== "undefined"
 if(has_storage){
     $B.has_local_storage = false
     // add attributes local_storage and session_storage
-    try {
-        if (localStorage) {
+    try{
+        if(localStorage){
             $B.local_storage = localStorage
             $B.has_local_storage = true
         }
-    } catch (err) { }
+    }catch(err){}
     $B.has_session_storage = false
-    try {
-        if (sessionStorage) {
+    try{
+        if(sessionStorage){
             $B.session_storage = sessionStorage
             $B.has_session_storage = true
         }
-    } catch (err) { }
-} else {
+    }catch(err){}
+}else{
     $B.has_local_storage = false
     $B.has_session_storage = false
 }
 
 $B.globals = function(){
     // Can be used in Javascript console to inspect global namespace
-    return $B.frames_stack[$B.frames_stack.length-1][3]
+    return $B.frames_stack[$B.frames_stack.length - 1][3]
+}
+
+$B.$options = {}
+
+// Can be used in Javascript programs to run Python code
+$B.python_to_js = function(src, script_id){
+    $B.meta_path = $B.$meta_path.slice()
+    if(!$B.use_VFS){$B.meta_path.shift()}
+    if(script_id === undefined){script_id = "__main__"}
+
+    var root = __BRYTHON__.py2js(src, script_id, script_id),
+        js = root.to_js()
+
+    js = "(function() {\n var $locals_" + script_id + " = {}\n" + js + "\n}())"
+    return js
 }
 
 // copied from https://raw.githubusercontent.com/mathiasbynens/mothereff.in/master/js-variables/eff.js

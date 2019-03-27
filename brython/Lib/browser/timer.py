@@ -1,4 +1,4 @@
-from browser import window
+from browser import console, window
 
 def wrap(func):
     # Transforms a function f into another function that prints a
@@ -7,20 +7,28 @@ def wrap(func):
         try:
             return func(*args, **kw)
         except Exception as exc:
-            msg = '{0.info}\n{0.__name__}: {0.args[0]}'.format(exc)
-            import sys
-            sys.stderr.write(msg)
+            msg = ''
+            try:
+                if exc.args:
+                    msg = '{0.info}\n{0.__name__}: {0.args[0]}'.format(exc)
+                else:
+                    msg = str(exc)
+                import sys
+                sys.stderr.write(msg)
+            except Exception as exc2:
+                console.log("Error printing exception traceback", exc2, func, 
+                    args, kw)
     return f
 
 clear_interval = window.clearInterval
-    
+
 clear_timeout = window.clearTimeout
 
-def set_interval(func,interval):
-    return window.setInterval(wrap(func),interval)
+def set_interval(func, interval):
+    return window.setInterval(wrap(func), interval)
 
-def set_timeout(func,interval):
-    return int(window.setTimeout(wrap(func),interval))
+def set_timeout(func, interval):
+    return int(window.setTimeout(wrap(func), interval))
 
 def request_animation_frame(func):
     return int(window.requestAnimationFrame(func))
