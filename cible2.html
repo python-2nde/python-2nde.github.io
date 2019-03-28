@@ -8,7 +8,7 @@
 <script type="text/javascript" src="brython/brython_stdlib.js"></script>
 
 <script id="python_script" type="text/python">
-from browser import document
+from browser import document, bind
 import turtle
 
 def setup():
@@ -16,7 +16,7 @@ def setup():
     _code = document['pre-src'].text
     exec(_code)
 
-@document['run'].bind('click')
+@bind('#run', 'click')
 def action(ev):
     turtle.restart()
     _code = document['pre-src'].text + document['user-src'].text
