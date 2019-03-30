@@ -18,3 +18,7 @@ button {
   float: left;
   margin-left: 50px;
 }
+
+.nav {
+  clear: both;
+}
