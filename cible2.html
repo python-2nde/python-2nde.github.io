@@ -61,8 +61,8 @@ def deplacer(t, x, y):
 
 def deplacer_depart(x, y):
     deplacer(tortue_depart, x, y)
-    deplacer(tortue_noire, x, y)
-    deplacer(tortue_rouge, x, y)
+    deplacer(tortue, x, y)
+    deplacer(point_rouge, x, y)
 
 def deplacer_cible(x, y):
     deplacer(cible, x, y)
@@ -106,25 +106,25 @@ cible.color("green")
 cible.penup()
 cible.speed(0)
 
-tortue_noire = turtle.Turtle()
-tortue_noire.shape("turtle")
-tortue_noire.penup()
-tortue_noire.speed(0)
+tortue = turtle.Turtle()
+tortue.shape("turtle")
+tortue.penup()
+tortue.speed(0)
 
-tortue_rouge = turtle.Turtle()
-tortue_rouge.shapesize(0.01)
-tortue_rouge.pencolor("red")
-tortue_rouge.penup()
-tortue_rouge.speed(0)
+point_rouge = turtle.Turtle()
+point_rouge.shapesize(0.01)
+point_rouge.pencolor("red")
+point_rouge.penup()
+point_rouge.speed(0)
 
 deplacer_depart(10, 20)
 deplacer_cible(300, 390)
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible
-tortue_noire.speed(5)
-tortue_rouge.speed(5)
-tortue_noire.pendown()
-tortue_rouge.pendown()
+tortue.speed(5)
+point_rouge.speed(5)
+tortue.pendown()
+point_rouge.pendown()
 
 turtle.done()
 </pre>
@@ -137,13 +137,13 @@ deplacement_vers_la_droite = 10
 deplacement_vers_le_haut = 10
 
 # Déplacement
-while pas_trop_loin(tortue_noire):
-    tortue_noire.forward(deplacement_vers_la_droite)
-    tortue_noire.left(90)
-    tortue_noire.forward(deplacement_vers_le_haut)
-    tortue_noire.right(90)
+while pas_trop_loin(tortue):
+    tortue.forward(deplacement_vers_la_droite)
+    tortue.left(90)
+    tortue.forward(deplacement_vers_le_haut)
+    tortue.right(90)
 
-tortue_rouge.goto(tortue_noire.position())
+point_rouge.goto(tortue.position())
 
 lancer_animation()
 

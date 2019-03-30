@@ -122,40 +122,40 @@ tortue_cible.penup()
 tortue_cible.speed(0)
 tortue_cible.goto(0, 90)
 
-tortue_noire = turtle.Turtle()
-tortue_noire.shape("turtle")
-tortue_noire.penup()
-tortue_noire.speed(0)
-tortue_noire.goto(-290, -280)
-tortue_noire.pendown()
+tortue = turtle.Turtle()
+tortue.shape("turtle")
+tortue.penup()
+tortue.speed(0)
+tortue.goto(-290, -280)
+tortue.pendown()
 
-tortue_rouge = turtle.Turtle()
-tortue_rouge.shapesize(0.01)
-tortue_rouge.pencolor("red")
-tortue_rouge.penup()
-tortue_rouge.speed(0)
-tortue_rouge.goto(-290, -280)
-tortue_rouge.pendown()
+point_rouge = turtle.Turtle()
+point_rouge.shapesize(0.01)
+point_rouge.pencolor("red")
+point_rouge.penup()
+point_rouge.speed(0)
+point_rouge.goto(-290, -280)
+point_rouge.pendown()
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible
-tortue_noire.speed(5)
-tortue_rouge.speed(5)
+tortue.speed(8)
+point_rouge.speed(0)
 
 turtle.done()
 </pre>
 <pre id="user-src" style="float:left" contenteditable="true">
 # Valeurs à changer
-deplacement_vers_la_droite = 10
-deplacement_vers_le_haut = 10
+deplacement_horizontal = 10
+deplacement_vertical = 10
 
 # Déplacement
-while pas_trop_loin(tortue_noire):
-    tortue_noire.forward(deplacement_vers_la_droite)
-    tortue_noire.left(90)
-    tortue_noire.forward(deplacement_vers_le_haut)
-    tortue_noire.right(90)
+while pas_trop_loin(tortue):
+    tortue.forward(deplacement_horizontal)
+    tortue.left(90)
+    tortue.forward(deplacement_vertical)
+    tortue.right(90)
 
-tortue_rouge.goto(tortue_noire.position())
+point_rouge.goto(tortue.position())
 
 lancer_animation()
 
