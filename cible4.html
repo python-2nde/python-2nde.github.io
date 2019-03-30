@@ -21,6 +21,8 @@ def action(ev):
     turtle.restart()
     _code = document['pre-src'].text + document['user-src'].text
     exec(_code)
+    tortue_rouge.goto(tortue.position())
+    turtle.done()
 
 setup()
 
@@ -142,6 +144,12 @@ deplacer(cible2, 310, 110)
 deplacer(cible3,  70,  80)
 deplacer(cible4, 270, 300)
 
+def marche(x, y):
+    tortue.forward(x)
+    tortue.left(90)
+    tortue.forward(y)
+    tortue.right(90)
+
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue_noire.speed(5)
 tortue_rouge.speed(5)
@@ -159,19 +167,12 @@ deplacer(cible3,  70,  80)
 deplacer(cible4, 270, 300)
 
 # Valeurs à changer
-deplacement_vers_la_droite = 10
-deplacement_vers_le_haut = 10
+Δx = 10
+Δy = 10
 
 # Déplacement
-while visible(tortue_noire):
-    tortue_noire.forward(deplacement_vers_la_droite)
-    tortue_noire.left(90)
-    tortue_noire.forward(deplacement_vers_le_haut)
-    tortue_noire.right(90)
-
-tortue_rouge.goto(tortue_noire.position())
-
-lancer_animation()
+while visible(tortue):
+    marche(Δx, Δy)
 
 </pre>
 

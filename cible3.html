@@ -21,6 +21,8 @@ def action(ev):
     turtle.restart()
     _code = document['pre-src'].text + document['user-src'].text
     exec(_code)
+    tortue_rouge.goto(tortue.position())
+    turtle.done()
 
 setup()
 
@@ -80,9 +82,6 @@ def visible(tortue):
            tortue.xcor() <=  taille and \
            tortue.ycor() >= -taille and \
            tortue.ycor() <=  taille
-
-def lancer_animation():
-    turtle.done()
 
 def deplacer(t, x, y):
     t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
@@ -156,6 +155,12 @@ for i, coords in enumerate(coords_cibles):
     cibles[i].speed(0)
     deplacer(cibles[i], x, y)
 
+def marche(x, y):
+    tortue.forward(x)
+    tortue.left(90)
+    tortue.forward(y)
+    tortue.right(90)
+
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue_noire.speed(5)
 tortue_rouge.speed(5)
@@ -166,19 +171,14 @@ turtle.done()
 </pre>
 <pre id="user-src" style="float:left" contenteditable="true">
 # Valeurs à changer
-deplacement_vers_la_droite = 10
-deplacement_vers_le_haut = 10
+Δx = 10
+Δy = 10
 
 # Déplacement
-while visible(tortue_noire):
-    tortue_noire.forward(deplacement_vers_la_droite)
-    tortue_noire.left(90)
-    tortue_noire.forward(deplacement_vers_le_haut)
-    tortue_noire.right(90)
+while visible(tortue):
+    marche(Δx, Δy)
 
-tortue_rouge.goto(tortue_noire.position())
 
-lancer_animation()
 
 </pre>
 
