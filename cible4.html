@@ -33,9 +33,7 @@ document['run'].text = "Exécuter le programme"
 </head>
 
 <body onload="brython(1)">
-<h1>Exercice des quatre cibles</h1>
-
-<p><button id="run">Veuillez patienter…</button></p>
+<h1>Exercice des cibles vertes et bleues</h1>
 
 <pre id="pre-src" style="display: none;">
 import turtle
@@ -158,6 +156,8 @@ tortue_rouge.pendown()
 
 turtle.done()
 </pre>
+
+<div id="colonne-gauche">
 <pre id="user-src" style="float:left" contenteditable="true">
 deplacer_depart(10, 20)
 
@@ -176,7 +176,11 @@ while visible(tortue):
 
 </pre>
 
-<span id="turtle-div" style="float:left;border:1px solid green; margin-left:50px;"> </span>
+<p><button id="run">Veuillez patienter…</button></p>
+
+</div>
+
+<div id="grille"><span id="turtle-div"> </span></div>
 
 <p class="nav">
   <a href="cible3.html">Page précédente</a>
