@@ -32,26 +32,14 @@ document['run'].text = "Exécuter le programme"
 
 <body onload="brython(1)">
 <h1>Atteindre la cible</h1>
-<p>Au départ, la tortue se trouve sur le point rouge et est orientée vers
-la droite.<p>
 
-<p>Dans le programme ci-dessous, à chaque passage dans la boucle, la tortue effectue :</p>
-
+<p>Dans le programme ci-dessous :</p>
 <ul>
-    <ul>
-        <li>un certain déplacement horizontal avec
-            <code>tortue.forward(...)</code>,</li>
-        <li>tourne à gauche (elle s'oriente donc vers le haut) avec
-            <code>tortue.left(90)</code>,</li>
-        <li>effectue un certain déplacement vertical avec
-            <code>tortue.forward(...)</code>,</li>
-        <li>puis tourne à droite (elle s'oriente donc vers la droite) avec
-            <code>tortue.right(90)</code>.</li>
-    </ul>
+    <li>À chaque passage dans la boucle, la tortue dessine une marche d’un
+        escalier, jusqu'à atteindre le bord de la fenêtre.</li>
+    <li>Une ligne reliant le point de départ aux points où la tortue tourne à
+        droite est dessinée en rouge.</li>
 </ul>
-<p>Le trajet de la tortue est dessiné en noir jusqu'à atteindre le bord de la
-fenêtre.</p>
-<p>Ensuite une ligne reliant le point de départ aux points où la tortue tourne à droite est dessinée en rouge.</li>
 
 <pre id="pre-src" style="display: none;">
 import turtle
