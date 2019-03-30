@@ -104,6 +104,12 @@ point_rouge.goto(-290, -280)
 point_rouge.dot(5, "red")
 point_rouge.pendown()
 
+def marche(x, y):
+    tortue.forward(x)
+    tortue.left(90)
+    tortue.forward(y)
+    tortue.right(90)
+
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue.speed(8)
 point_rouge.speed(0)
@@ -119,10 +125,7 @@ deplacement_vertical = 10
 
 # Déplacement
 while visible(tortue):
-    tortue.forward(deplacement_horizontal)
-    tortue.left(90)
-    tortue.forward(deplacement_vertical)
-    tortue.right(90)
+    marche(deplacement_horizontal, deplacement_vertical)
 
 point_rouge.goto(tortue.position())
 
