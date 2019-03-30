@@ -20,6 +20,10 @@ button {
   margin-left: 50px;
 }
 
+#pre-src, #post-src {
+  display: none;
+}
+
 .nav {
   clear: both;
 }
