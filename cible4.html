@@ -19,10 +19,10 @@ def setup():
 @bind('#run', 'click')
 def action(ev):
     turtle.restart()
-    _code = document['pre-src'].text + document['user-src'].text
+    _code = document['pre-src'].text
+    _code = _code + document['user-src'].text
+    _code = _code + document['post-src'].text
     exec(_code)
-    tortue_rouge.goto(tortue.position())
-    turtle.done()
 
 setup()
 
@@ -56,10 +56,11 @@ def visible(tortue):
 def deplacer(t, x, y):
     t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
-def deplacer_depart(x, y):
-    deplacer(tortue_depart, x, y)
-    deplacer(tortue_noire, x, y)
-    deplacer(tortue_rouge, x, y)
+def A(x, y):
+    deplacer(tortue, x, y)
+    deplacer(point_rouge, x, y)
+    point_rouge.dot(5, "red")
+    point_rouge.write("   A")
 
 # Grille
 t = turtle.Turtle()
@@ -91,23 +92,17 @@ deplacer(t, 5, 380)
 t.write("y")
 
 # Mise en place des tortues
-tortue_depart = turtle.Turtle()
-tortue_depart.shape("circle")
-tortue_depart.color("red")
-tortue_depart.penup()
-tortue_depart.speed(0)
+tortue = turtle.Turtle()
+tortue.shape("turtle")
+tortue.penup()
+tortue.speed(0)
 
-tortue_noire = turtle.Turtle()
-tortue_noire.shape("turtle")
-tortue_noire.penup()
-tortue_noire.speed(0)
+point_rouge = turtle.Turtle()
+point_rouge.pencolor("red")
+point_rouge.penup()
+point_rouge.speed(0)
 
-tortue_rouge = turtle.Turtle()
-tortue_rouge.pencolor("red")
-tortue_rouge.penup()
-tortue_rouge.speed(0)
-
-deplacer_depart(10, 20)
+A(10, 20)
 
 cible1 = turtle.Turtle()
 cible1.shape("circle")
@@ -145,17 +140,21 @@ def marche(x, y):
     tortue.right(90)
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible
-tortue_noire.speed(8)
-tortue_rouge.speed(0)
-tortue_noire.pendown()
-tortue_rouge.pendown()
+tortue.speed(8)
+point_rouge.speed(0)
+tortue.pendown()
+point_rouge.pendown()
 
 turtle.done()
 </pre>
 
+<pre id="post-src">
+point_rouge.goto(tortue.position())
+</pre>
+
 <div id="colonne-gauche">
-<pre id="user-src" style="float:left" contenteditable="true">
-deplacer_depart(10, 20)
+<pre id="user-src" contenteditable="true">
+A(10, 20)
 
 deplacer(cible1, 110,  50)
 deplacer(cible2, 310, 110)
