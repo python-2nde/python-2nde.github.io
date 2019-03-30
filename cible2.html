@@ -56,12 +56,15 @@ def visible(tortue):
 def deplacer(t, x, y):
     t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
-def deplacer_depart(x, y):
+def A(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
+    point_rouge.write("   A")
 
-def deplacer_cible(x, y):
+def B(x, y):
+    deplacer(t, x, y-10)
+    t.write("  B")
     deplacer(t, x, y)
     t.dot(10, "lightgreen")
     t.dot(1, "black")
@@ -106,8 +109,8 @@ point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
 
-deplacer_depart(10, 20)
-deplacer_cible(300, 390)
+A(10, 20)
+B(300, 390)
 
 def marche(x, y):
     tortue.forward(x)
@@ -130,8 +133,8 @@ point_rouge.goto(tortue.position())
 
 <div id="colonne-gauche">
 <pre id="user-src" contenteditable="true">
-deplacer_depart(10, 20)
-deplacer_cible(300, 390)
+A(10, 20)
+B(300, 390)
 
 # Valeurs à changer
 Δx = 10
