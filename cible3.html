@@ -75,7 +75,7 @@ turtle.set_defaults(
 taille = 300
 x_pos_axe, y_pos_axe = 200, 200
 
-def pas_trop_loin(tortue):
+def visible(tortue):
     return tortue.xcor() >= -taille and \
            tortue.xcor() <=  taille and \
            tortue.ycor() >= -taille and \
@@ -170,7 +170,7 @@ deplacement_vers_la_droite = 10
 deplacement_vers_le_haut = 10
 
 # Déplacement
-while pas_trop_loin(tortue_noire):
+while visible(tortue_noire):
     tortue_noire.forward(deplacement_vers_la_droite)
     tortue_noire.left(90)
     tortue_noire.forward(deplacement_vers_le_haut)
