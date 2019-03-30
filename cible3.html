@@ -67,7 +67,7 @@ def deplacer(t, x, y):
 
 def deplacer_depart(x, y):
     deplacer(tortue_depart, x, y)
-    deplacer(tortue_noire, x, y)
+    deplacer(tortue, x, y)
     deplacer(tortue_rouge, x, y)
 
 # Grille
@@ -101,10 +101,10 @@ tortue_depart.color("red")
 tortue_depart.penup()
 tortue_depart.speed(0)
 
-tortue_noire = turtle.Turtle()
-tortue_noire.shape("turtle")
-tortue_noire.penup()
-tortue_noire.speed(0)
+tortue = turtle.Turtle()
+tortue.shape("turtle")
+tortue.penup()
+tortue.speed(0)
 
 tortue_rouge = turtle.Turtle()
 tortue_rouge.pencolor("red")
@@ -138,9 +138,9 @@ def marche(x, y):
     tortue.right(90)
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible
-tortue_noire.speed(5)
+tortue.speed(5)
 tortue_rouge.speed(5)
-tortue_noire.pendown()
+tortue.pendown()
 tortue_rouge.pendown()
 
 turtle.done()
