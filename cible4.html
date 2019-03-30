@@ -62,6 +62,18 @@ def A(x, y):
     point_rouge.dot(5, "red")
     point_rouge.write("   A")
 
+def B(x, y):
+    pass
+
+def C(x, y):
+    pass
+
+def D(x, y):
+    pass
+
+def E(x, y):
+    pass
+
 # Grille
 t = turtle.Turtle()
 t.speed(0)
@@ -104,34 +116,26 @@ point_rouge.speed(0)
 
 A(10, 20)
 
-cible1 = turtle.Turtle()
-cible1.shape("circle")
-cible1.color("blue")
-cible1.penup()
-cible1.speed(0)
+# les cibles vertes et bleues
+coords_cibles = (110,  50), \
+                (310, 110), \
+                ( 70,  80), \
+                (270, 300)
 
-cible2 = turtle.Turtle()
-cible2.shape("circle")
-cible2.color("blue")
-cible2.penup()
-cible2.speed(0)
-
-cible3 = turtle.Turtle()
-cible3.shape("circle")
-cible3.color("lightgreen")
-cible3.penup()
-cible3.speed(0)
-
-cible4 = turtle.Turtle()
-cible4.shape("circle")
-cible4.color("lightgreen")
-cible4.penup()
-cible4.speed(0)
-
-deplacer(cible1, 110,  50)
-deplacer(cible2, 310, 110)
-deplacer(cible3,  70,  80)
-deplacer(cible4, 270, 300)
+drawer = turtle.Turtle()
+for i, coords in enumerate(coords_cibles):
+    x, y = coords
+    drawer.penup()
+    drawer.speed(0)
+    deplacer(drawer, x+15, y-10)
+    drawer.write("BCDE"[i])
+    deplacer(drawer, x, y)
+    if i < 2:
+        drawer.dot(10, "lightgreen")
+    else:
+        drawer.dot(10, "cyan")
+    drawer.dot(1, "black")
+deplacer(drawer, -1000, 0)
 
 def marche(x, y):
     tortue.forward(x)
@@ -156,10 +160,10 @@ point_rouge.goto(tortue.position())
 <pre id="user-src" contenteditable="true">
 A(10, 20)
 
-deplacer(cible1, 110,  50)
-deplacer(cible2, 310, 110)
-deplacer(cible3,  70,  80)
-deplacer(cible4, 270, 300)
+B(110,  50)
+C(310, 110)
+D( 70,  80)
+E(270, 300)
 
 # Valeurs à changer
 Δx = 10
