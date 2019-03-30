@@ -19,10 +19,10 @@ def setup():
 @bind('#run', 'click')
 def action(ev):
     turtle.restart()
-    _code = document['pre-src'].text + document['user-src'].text
+    _code = document['pre-src'].text
+    _code = _code + document['user-src'].text
+    _code = _code + document['post-src'].text
     exec(_code)
-    tortue_rouge.goto(tortue.position())
-    turtle.done()
 
 setup()
 
@@ -57,12 +57,14 @@ def deplacer(t, x, y):
     t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
 def deplacer_depart(x, y):
-    deplacer(tortue_depart, x, y)
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
+    point_rouge.dot(5, "red")
 
 def deplacer_cible(x, y):
-    deplacer(cible, x, y)
+    deplacer(t, x, y)
+    t.dot(10, "lightgreen")
+    t.dot(1, "black")
 
 # Grille
 t = turtle.Turtle()
@@ -94,18 +96,6 @@ deplacer(t, 5, 380)
 t.write("y")
 
 # Mise en place des tortues
-tortue_depart = turtle.Turtle()
-tortue_depart.shape("circle")
-tortue_depart.color("red")
-tortue_depart.penup()
-tortue_depart.speed(0)
-
-cible = turtle.Turtle()
-cible.shape("circle")
-cible.color("green")
-cible.penup()
-cible.speed(0)
-
 tortue = turtle.Turtle()
 tortue.shape("turtle")
 tortue.penup()
@@ -132,6 +122,10 @@ tortue.pendown()
 point_rouge.pendown()
 
 turtle.done()
+</pre>
+
+<pre id="post-src">
+point_rouge.goto(tortue.position())
 </pre>
 
 <div id="colonne-gauche">
