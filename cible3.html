@@ -93,6 +93,11 @@ while i <= taille:
 t.color('black')
 create_line(-taille, -taille + y_pos_axe, taille, -taille + y_pos_axe)
 create_line(-taille + x_pos_axe, -taille, -taille + x_pos_axe, taille)
+t.penup()
+deplacer(t, 380, 5)
+t.write("x")
+deplacer(t, 5, 380)
+t.write("y")
 
 # Mise en place des tortues
 tortue_depart = turtle.Turtle()
