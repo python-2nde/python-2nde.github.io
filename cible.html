@@ -81,14 +81,6 @@ while i <= taille:
     i = i + 10
 
 # Mise en place des tortues
-tortue_depart = turtle.Turtle()
-tortue_depart.shapesize(5)
-tortue_depart.shape("circle")
-tortue_depart.color("red")
-tortue_depart.penup()
-tortue_depart.speed(0)
-tortue_depart.goto(-290, -280)
-
 tortue_cible = turtle.Turtle()
 tortue_cible.shapesize(5)
 tortue_cible.shape("circle")
@@ -105,11 +97,11 @@ tortue.goto(-290, -280)
 tortue.pendown()
 
 point_rouge = turtle.Turtle()
-point_rouge.shapesize(0.01)
 point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
 point_rouge.goto(-290, -280)
+point_rouge.dot(5, "red")
 point_rouge.pendown()
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible
