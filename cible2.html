@@ -33,8 +33,6 @@ document['run'].text = "Exécuter le programme"
 <body onload="brython(1)">
 <h1>Direction d’une droite (suite)</h1>
 
-<p><button id="run">Veuillez patienter…</button></p>
-
 <pre id="pre-src" style="display: none;">
 import turtle
 turtle.set_defaults(
@@ -128,6 +126,8 @@ point_rouge.pendown()
 
 turtle.done()
 </pre>
+
+<div id="colonne-gauche">
 <pre id="user-src" style="float:left" contenteditable="true">
 deplacer_depart(10, 20)
 deplacer_cible(300, 390)
@@ -149,7 +149,11 @@ lancer_animation()
 
 </pre>
 
-<span id="turtle-div" style="float:left;border:1px solid green; margin-left:50px;"> </span>
+<p><button id="run">Veuillez patienter…</button></p>
+
+</div>
+
+<div id="grille"><span id="turtle-div"> </span></div>
 
 <p class="nav">
   <a href="cible.html">Page précédente</a> -
