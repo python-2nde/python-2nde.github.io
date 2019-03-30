@@ -19,7 +19,9 @@ def setup():
 @bind('#run', 'click')
 def action(ev):
     turtle.restart()
-    _code = document['pre-src'].text + document['user-src'].text
+    _code = document['pre-src'].text
+    _code = _code + document['user-src'].text
+    _code = _code + document['post-src'].text
     exec(_code)
 
 setup()
@@ -57,9 +59,6 @@ def visible(tortue):
            tortue.xcor() <=  taille and \
            tortue.ycor() >= -taille and \
            tortue.ycor() <=  taille
-
-def lancer_animation():
-    turtle.done()
 
 # Grille
 t = turtle.Turtle()
@@ -116,6 +115,10 @@ point_rouge.speed(0)
 turtle.done()
 </pre>
 
+<pre id="post-src" style="display: none;">
+point_rouge.goto(tortue.position())
+</pre>
+
 <div id="colonne-gauche">
 <pre id="user-src" contenteditable="true">
 # Valeurs à changer
@@ -125,10 +128,6 @@ deplacement_vertical = 10
 # Déplacement
 while visible(tortue):
     marche(deplacement_horizontal, deplacement_vertical)
-
-point_rouge.goto(tortue.position())
-
-lancer_animation()
 
 </pre>
 
