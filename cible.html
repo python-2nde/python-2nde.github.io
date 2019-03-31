@@ -54,12 +54,11 @@ turtle.set_defaults(
   )
 # Espace de jeu
 taille = 300
+x_pos_axe, y_pos_axe = 0, 0
+x_max = 600
 
-def visible(tortue):
-    return tortue.xcor() >= -taille and \
-           tortue.xcor() <=  taille and \
-           tortue.ycor() >= -taille and \
-           tortue.ycor() <=  taille
+def deplacer(t, x, y):
+    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
 # Grille
 t = turtle.Turtle()
@@ -126,9 +125,16 @@ point_rouge.goto(tortue.position())
 deplacement_horizontal = 10
 deplacement_vertical = 10
 
+# Initialisation des coordonnées de la tortue
+xT = 10
+yT = 20
+
 # Déplacement
-while visible(tortue):
-    marche(deplacement_horizontal, deplacement_vertical)
+while xT < x_max:
+    xT = xT + deplacement_horizontal
+    deplacer(tortue, xT, yT)
+    yT = yT + deplacement_vertical
+    deplacer(tortue, xT, yT)
 
 </pre>
 
