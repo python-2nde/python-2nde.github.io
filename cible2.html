@@ -90,13 +90,23 @@ while i <= taille:
 
 # Repere
 t.color('black')
+# Axes
 create_line(-taille, -taille + y_pos_axe, taille, -taille + y_pos_axe)
 create_line(-taille + x_pos_axe, -taille, -taille + x_pos_axe, taille)
+# Tirets
+for i in range(-1, 4):
+    create_line(i*100 - 100, -5 - 100, i*100 - 100, 5 - 100)
+    create_line(-5 - 100, i*100 - 100, 5 - 100, i*100 - 100)
+# Nom des axes et échelle
 t.penup()
 deplacer(t, 380, 5)
 t.write("x")
 deplacer(t, 5, 380)
 t.write("y")
+deplacer(t, 85, -25)
+t.write("100")
+deplacer(t, -45, 95)
+t.write("100")
 
 # Mise en place des tortues
 tortue = turtle.Turtle()
