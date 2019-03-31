@@ -46,23 +46,18 @@ turtle.set_defaults(
 # Espace de jeu
 taille = 300
 x_pos_axe, y_pos_axe = 200, 200
-
-def visible(tortue):
-    return tortue.xcor() >= -taille and \
-           tortue.xcor() <=  taille and \
-           tortue.ycor() >= -taille and \
-           tortue.ycor() <=  taille
+x_max = 600
 
 def deplacer(t, x, y):
     t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
-def A(x, y):
+def tortue_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
     point_rouge.write("   A")
 
-def B(x, y):
+def cible(x, y):
     deplacer(t, x, y-10)
     t.write("  B")
     deplacer(t, x, y)
@@ -119,8 +114,8 @@ point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
 
-A(10, 20)
-B(300, 390)
+tortue_depart(10, 20)
+cible(300, 390)
 
 def marche(x, y):
     tortue.forward(x)
@@ -143,16 +138,26 @@ point_rouge.goto(tortue.position())
 
 <div id="colonne-gauche">
 <pre id="user-src" contenteditable="true">
-A(10, 20)
-B(300, 390)
-
 # Valeurs à changer
 Δx = 10
 Δy = 10
 
+# Initialisation des coordonnées de la tortue
+xT = 10
+yT = 20
+tortue_depart(xT, yT)
+
+# Initialisation des coordonnées de la cible
+xC = 300
+yC = 390
+cible(xC, yC)
+
 # Déplacement
-while visible(tortue):
-    marche(Δx, Δy)
+while xT < x_max:
+    xT = xT + Δx
+    deplacer(tortue, xT, yT)
+    yT = yT + Δy
+    deplacer(tortue, xT, yT)
 
 </pre>
 
