@@ -7,6 +7,7 @@ pre {
 }
 button {
   margin: 20px;
+  margin-top: 0px;
   padding: 10px;
 }
 
@@ -20,7 +21,7 @@ button {
   margin-left: 50px;
 }
 
-#pre-src, #post-src {
+#pre-src, #pre-user-src {
   display: none;
 }
 

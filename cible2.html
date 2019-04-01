@@ -11,23 +11,27 @@
 from browser import document, bind
 import turtle
 
-def setup():
+@bind('#init', 'click')
+def setup(ev):
     turtle.restart()
     _code = document['pre-src'].text
+    _code = _code + document['init-src'].text
     exec(_code)
 
 @bind('#run', 'click')
 def action(ev):
     turtle.restart()
     _code = document['pre-src'].text
+    _code = _code + document['init-src'].text
+    _code = _code + document['pre-user-src'].text
     _code = _code + document['user-src'].text
-    _code = _code + document['post-src'].text
     exec(_code)
 
-setup()
+setup(None)
 
 # keep this line at the end (user notification)
-document['run'].text = "Exécuter le programme"
+document['init'].text = "Mettre en place"
+document['run'].text = "Lancer la tortue"
 </script>
 
 </head>
@@ -51,13 +55,13 @@ x_max = 600
 def deplacer(t, x, y):
     t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
 
-def tortue_depart(x, y):
+def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
     point_rouge.write("   A")
 
-def cible(x, y):
+def deplacer_cible(x, y):
     deplacer(t, x, y-10)
     t.write("  B")
     deplacer(t, x, y)
@@ -114,50 +118,48 @@ point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
 
-tortue_depart(10, 20)
-cible(300, 390)
-
-def marche(x, y):
-    tortue.forward(x)
-    tortue.left(90)
-    tortue.forward(y)
-    tortue.right(90)
-
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue.speed(8)
 point_rouge.speed(0)
-tortue.pendown()
-point_rouge.pendown()
 
 turtle.done()
 </pre>
 
-<pre id="post-src">
-# point_rouge.goto(tortue.position())
-</pre>
-
 <div id="colonne-gauche">
+<pre id="init-src" contenteditable="true">
+# Coordonnées du point de départ
+xA = 10
+yA = 20
+deplacer_depart(xA, yA)
+
+# Coordonnées du centre de la cible
+xB = 300
+yB = 390
+deplacer_cible(xB, yB)
+
+</pre>
+<pre id="pre-user-src">
+# TODO speed
+tortue.pendown()
+point_rouge.pendown()
+</pre>
+<p><button id="init">Veuillez patienter…</button></p>
 <pre id="user-src" contenteditable="true">
 # Valeurs à changer
 Δx = 10
 Δy = 10
 
-# Initialisation des coordonnées de la tortue
-xT = 10
-yT = 20
-tortue_depart(xT, yT)
-
-# Initialisation des coordonnées de la cible
-xC = 300
-yC = 390
-cible(xC, yC)
-
 # Déplacement
+xT = xA
+yT = yA
 while xT < x_max:
     xT = xT + Δx
     deplacer(tortue, xT, yT)
     yT = yT + Δy
     deplacer(tortue, xT, yT)
+
+# Tracé de la ligne rouge
+point_rouge.goto(tortue.position())
 
 </pre>
 
