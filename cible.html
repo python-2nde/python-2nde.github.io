@@ -113,11 +113,15 @@ def marche(x, y):
 tortue.speed(8)
 point_rouge.speed(0)
 
+# Initialisation des coordonnées de la tortue
+xT = 10
+yT = 20
+
 turtle.done()
 </pre>
 
 <pre id="post-src">
-point_rouge.goto(tortue.position())
+# point_rouge.goto(tortue.position())
 </pre>
 
 <div id="colonne-gauche">
@@ -125,10 +129,6 @@ point_rouge.goto(tortue.position())
 # Valeurs à changer
 deplacement_horizontal = 10
 deplacement_vertical = 10
-
-# Initialisation des coordonnées de la tortue
-xT = 10
-yT = 20
 
 # Déplacement
 while xT < x_max:
