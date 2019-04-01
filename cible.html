@@ -21,7 +21,6 @@ def action(ev):
     turtle.restart()
     _code = document['pre-src'].text
     _code = _code + document['user-src'].text
-    _code = _code + document['post-src'].text
     exec(_code)
 
 setup()
@@ -118,10 +117,6 @@ xT = 10
 yT = 20
 
 turtle.done()
-</pre>
-
-<pre id="post-src">
-# point_rouge.goto(tortue.position())
 </pre>
 
 <div id="colonne-gauche">
