@@ -59,11 +59,11 @@ def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
-    point_rouge.write("   A")
+    point_rouge.write("   A", color="black", font=("Arial", "30px", "normal"))
 
 def deplacer_cible(x, y):
     deplacer(t, x, y-10)
-    t.write("  B")
+    t.write("  B", color="black", font=("Arial", "30px", "normal"))
     deplacer(t, x, y)
     t.dot(10, "lightgreen")
     t.dot(1, "black")
