@@ -40,30 +40,33 @@ document['run'].text = "Lancer la tortue"
 <h1>Direction d’une droite (suite)</h1>
 
 <pre id="pre-src">
-import turtle
+taille = 300  # moitié du côté du playground
+
 turtle.set_defaults(
-    canvwidth = 600,
-    canvheight = 600,
+    canvwidth = 2*taille,
+    canvheight = 2*taille,
     turtle_canvas_wrapper = document['turtle-div']
    # , turtle_canvas_id = 'turtle-canvas' # default, could be overriden
   )
+
 # Espace de jeu
-taille = 300
 x_pos_axe, y_pos_axe = 200, 200
-x_max = 600
+x_max = 2*taille
+
+font = "Arial", "30px", "normal"
 
 def deplacer(t, x, y):
-    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
+    t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
 
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
-    point_rouge.write("   A", color="black", font=("Arial", "30px", "normal"))
+    point_rouge.write("   A", color="black", font=font)
 
 def deplacer_cible(x, y):
     deplacer(t, x, y-10)
-    t.write("  B", color="black", font=("Arial", "30px", "normal"))
+    t.write("  B", color="black", font=font)
     deplacer(t, x, y)
     t.dot(10, "lightgreen")
     t.dot(1, "black")
@@ -173,4 +176,3 @@ deplacer(point_rouge, xT, yT)
 </body>
 
 </html>
-
