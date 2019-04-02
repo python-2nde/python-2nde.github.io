@@ -35,7 +35,7 @@ document['run'].text = "Exécuter le programme"
 <body onload="brython(1)">
 <h1>Exercice des quatre cibles</h1>
 
-<p>Le point de départ est noté A(10, 20) et les quatre cibles sont :<p>
+<p>Le point de départ est A(10, 20) et les quatre cibles sont :<p>
 <ul>
 <li>B(250, 390)</li>
 <li>C(250, 200)</li>
@@ -134,7 +134,7 @@ for i, coords in enumerate(coords_cibles):
     drawer.penup()
     drawer.speed(0)
     deplacer(drawer, x+15, y-10)
-    drawer.write("BCDE"[i])
+    drawer.write("BCDE"[i], color="black", font=font)
     deplacer(drawer, x, y)
     drawer.dot(10, "lightgreen")
     drawer.dot(1, "black")
