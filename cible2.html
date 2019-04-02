@@ -118,10 +118,6 @@ point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
 
-# Vitesse de 1 à 50, 0 pour le plus vite possible
-tortue.speed(8)
-point_rouge.speed(0)
-
 turtle.done()
 </pre>
 
@@ -139,9 +135,12 @@ deplacer_cible(xB, yB)
 
 </pre>
 <pre id="pre-user-src">
-# TODO speed
 tortue.pendown()
 point_rouge.pendown()
+# Vitesse de 1 à 50, 0 pour le plus vite possible
+tortue.speed(8)
+point_rouge.speed(0)
+
 </pre>
 <p><button id="init">Veuillez patienter…</button></p>
 <pre id="user-src" contenteditable="true">
@@ -159,7 +158,7 @@ while xT < x_max:
     deplacer(tortue, xT, yT)
 
 # Tracé de la ligne rouge
-point_rouge.goto(tortue.position())
+deplacer(point_rouge, xT, yT)
 
 </pre>
 
