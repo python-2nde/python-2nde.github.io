@@ -11,7 +11,8 @@
 from browser import document, bind
 import turtle
 
-def setup():
+@bind('#init', 'click')
+def setup(ev):
     turtle.restart()
     _code = document['pre-src'].text
     exec(_code)
@@ -21,10 +22,9 @@ def action(ev):
     turtle.restart()
     _code = document['pre-src'].text
     _code = _code + document['user-src'].text
-    _code = _code + document['post-src'].text
     exec(_code)
 
-setup()
+setup(None)
 
 # keep this line at the end (user notification)
 document['run'].text = "Exécuter le programme"
@@ -46,30 +46,29 @@ du haut. Elles ont pour coordonnées :<p>
 </ul>
 
 <pre id="pre-src">
-import turtle
+taille = 300  # moitié du côté du playground
+
 turtle.set_defaults(
     canvwidth = 600,
     canvheight = 600,
     turtle_canvas_wrapper = document['turtle-div']
    # , turtle_canvas_id = 'turtle-canvas' # default, could be overriden
   )
-# Espace de jeu
-taille = 300
-x_pos_axe, y_pos_axe = 200, 200
 
-def visible(tortue):
-    return tortue.xcor() >= -taille and \
-           tortue.xcor() <=  taille and \
-           tortue.ycor() >= -taille and \
-           tortue.ycor() <=  taille
+# Espace de jeu
+x_pos_axe, y_pos_axe = 200, 200
+x_max = 2*taille
+
+font = "Arial", "30px", "normal"
 
 def deplacer(t, x, y):
-    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
+    t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
 
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
+    point_rouge.write("   A", color="black", font=font)
 
 # Grille
 t = turtle.Turtle()
@@ -120,11 +119,12 @@ point_rouge = turtle.Turtle()
 point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
+point_rouge.hideturtle()
 
-deplacer_depart(10, 20)
-point_rouge.write("  A")
+xT, yT = 10, 20
+deplacer_depart(xT, yT)
 
-# les 4 cibles (merci patron)
+# les 4 cibles
 coords_cibles = (250,  390), \
                 (250,  200), \
                 (250,   20), \
@@ -142,12 +142,6 @@ for i, coords in enumerate(coords_cibles):
     drawer.dot(1, "black")
 deplacer(drawer, -1000, 0)
 
-def marche(x, y):
-    tortue.forward(x)
-    tortue.left(90)
-    tortue.forward(y)
-    tortue.right(90)
-
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue.speed(8)
 point_rouge.speed(0)
@@ -157,19 +151,21 @@ point_rouge.pendown()
 turtle.done()
 </pre>
 
-<pre id="post-src">
-point_rouge.goto(tortue.position())
-</pre>
-
 <div id="colonne-gauche">
-<pre id="user-src" style="float:left" contenteditable="true">
+<pre id="user-src" contenteditable="true">
 # Valeurs à changer
 Δx = 10
 Δy = 10
 
 # Déplacement
-while visible(tortue):
-    marche(Δx, Δy)
+while xT < x_max:
+    xT = xT + Δx
+    deplacer(tortue, xT, yT)
+    yT = yT + Δy
+    deplacer(tortue, xT, yT)
+
+# Tracé de la ligne rouge
+deplacer(point_rouge, xT, yT)
 
 </pre>
 
@@ -189,14 +185,10 @@ while visible(tortue):
         fonctionnent sur le cahier de recherche).</li>
 </ul>
 
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 </div>
 
 <div id="grille"><span id="turtle-div"> </span></div>
-
-<p class="nav">
-  <a href="cible2.html">Page précédente</a> -
-  <a href="cible4.html">Page suivante</a>
-</p>
 
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 </body>
