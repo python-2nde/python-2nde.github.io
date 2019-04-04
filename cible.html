@@ -54,11 +54,11 @@ turtle.set_defaults(
   )
 # Espace de jeu
 taille = 300
-x_pos_axe, y_pos_axe = 0, 0
+x_pos_axe, y_pos_axe = 200, 200
 x_max = 600
 
 def deplacer(t, x, y):
-    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
+    t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
 
 # Grille
 t = turtle.Turtle()
@@ -80,25 +80,33 @@ while i <= taille:
     i = i + 10
 
 # Mise en place des tortues
-tortue_cible = turtle.Turtle()
-tortue_cible.shape("circle")
-tortue_cible.color("lightgreen")
-tortue_cible.penup()
-tortue_cible.speed(0)
-tortue_cible.goto(0, 90)
+
+# Initialisation des coordonnées de la tortue et de la cible
+xT = 10
+yT = 20
+xC = 300
+yC = 390
 
 tortue = turtle.Turtle()
 tortue.shape("turtle")
 tortue.penup()
 tortue.speed(0)
-tortue.goto(-290, -280)
+deplacer(tortue, xT, yT)
 tortue.pendown()
+
+tortue_cible = turtle.Turtle()
+tortue_cible.shape("circle")
+tortue_cible.color("lightgreen")
+tortue_cible.penup()
+tortue_cible.speed(0)
+deplacer(tortue_cible, xC, yC)
 
 point_rouge = turtle.Turtle()
 point_rouge.pencolor("red")
+point_rouge.hideturtle()
 point_rouge.penup()
 point_rouge.speed(0)
-point_rouge.goto(-290, -280)
+deplacer(point_rouge, xC, yC)
 point_rouge.dot(5, "red")
 point_rouge.pendown()
 
@@ -111,10 +119,6 @@ def marche(x, y):
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue.speed(8)
 point_rouge.speed(0)
-
-# Initialisation des coordonnées de la tortue
-xT = 10
-yT = 20
 
 turtle.done()
 </pre>
