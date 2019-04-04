@@ -4,6 +4,7 @@ pre {
   min-width: 640px;
   min-height: 100px;
   font-size: 2em;
+  margin-bottom: 0px;
 }
 
 button {
@@ -11,11 +12,16 @@ button {
 }
 
 #init {
-  margin-top: 0px;
+  margin-top: 5px;
   margin-left: 30px;
 }
 
 #run {
+  margin-top: 0px;
+  margin-right: 30px;
+}
+
+#run2 {
   float: right;
   margin-top: 20px;
   margin-right: 30px;

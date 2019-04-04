@@ -18,7 +18,7 @@ def setup(ev):
     _code = _code + document['init-src'].text
     exec(_code)
 
-@bind('#run', 'click')
+@bind('#run2', 'click')
 def action(ev):
     turtle.restart()
     _code = document['pre-src'].text
@@ -31,7 +31,7 @@ setup(None)
 
 # keep this line at the end (user notification)
 document['init'].text = "Mettre en place"
-document['run'].text = "Lancer la tortue"
+document['run2'].text = "Lancer la tortue"
 </script>
 
 </head>
@@ -146,8 +146,8 @@ tortue.speed(8)
 point_rouge.speed(0)
 
 </pre>
-<p><button id="init">Veuillez patienter…</button>
-<button id="run">Veuillez patienter…</button></p>
+<div><button id="init">Veuillez patienter…</button>
+<button id="run2">Veuillez patienter…</button></div>
 
 <pre id="user-src" contenteditable="true">
 # Valeurs à changer
