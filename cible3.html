@@ -54,7 +54,7 @@ turtle.set_defaults(
   )
 
 # Espace de jeu
-x_pos_axe, y_pos_axe = 200, 200
+x_pos_axe, y_pos_axe = 180, 180
 x_max = 2*taille
 
 font = "Arial", "30px", "normal"
@@ -81,6 +81,10 @@ def create_line(x0, y0, x1, y1):
     t.pendown()
     t.goto(x1, y1)
 
+def create_line_2(x0, y0, x1, y1):
+    create_line(x0 - (200 - x_pos_axe), y0 - (200 - y_pos_axe),
+                x1 - (200 - x_pos_axe), y1 - (200 - y_pos_axe))
+
 i = -taille
 while i <= taille:
     create_line(-taille, i, taille, i)
@@ -93,14 +97,14 @@ t.color('black')
 create_line(-taille, -taille + y_pos_axe, taille, -taille + y_pos_axe)
 create_line(-taille + x_pos_axe, -taille, -taille + x_pos_axe, taille)
 # Tirets
-for i in range(-1, 4):
-    create_line(i*100 - 100, -5 - 100, i*100 - 100, 5 - 100)
-    create_line(-5 - 100, i*100 - 100, 5 - 100, i*100 - 100)
+for i in range(-1, 5):
+    create_line_2(i*100 - 100, -5 - 100, i*100 - 100, 5 - 100)
+    create_line_2(-5 - 100, i*100 - 100, 5 - 100, i*100 - 100)
 # Nom des axes et échelle
 t.penup()
-deplacer(t, 380, 5)
+deplacer(t, 405, 5)
 t.write("x")
-deplacer(t, 5, 380)
+deplacer(t, 10, 400)
 t.write("y")
 deplacer(t, 85, -25)
 t.write("100")
