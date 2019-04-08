@@ -11,7 +11,8 @@
 from browser import document, bind
 import turtle
 
-def setup():
+@bind('#init', 'click')
+def setup(ev):
     turtle.restart()
     _code = document['pre-src'].text
     exec(_code)
@@ -21,10 +22,9 @@ def action(ev):
     turtle.restart()
     _code = document['pre-src'].text
     _code = _code + document['user-src'].text
-    _code = _code + document['post-src'].text
     exec(_code)
 
-setup()
+setup(None)
 
 # keep this line at the end (user notification)
 document['run'].text = "Exécuter le programme"
@@ -36,31 +36,30 @@ document['run'].text = "Exécuter le programme"
 <h1>Exercice des quatre autres cibles</h1>
 
 <pre id="pre-src">
-import turtle
+taille = 300  # moitié du côté du playground
+
 turtle.set_defaults(
     canvwidth = 600,
     canvheight = 600,
     turtle_canvas_wrapper = document['turtle-div']
    # , turtle_canvas_id = 'turtle-canvas' # default, could be overriden
   )
-# Espace de jeu
-taille = 300
-x_pos_axe, y_pos_axe = 200, 200
 
-def visible(tortue):
-    return tortue.xcor() >= -taille and \
-           tortue.xcor() <=  taille and \
-           tortue.ycor() >= -taille and \
-           tortue.ycor() <=  taille
+# Espace de jeu
+x_pos_axe, y_pos_axe = 180, 180
+x_max = 2*taille
+
+font = "Arial", "30px", "normal"
 
 def deplacer(t, x, y):
-    t.goto(x-300+x_pos_axe, y-300+y_pos_axe)
+    t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
 
 def A(x, y):
     deplacer(tortue, x, y)
+    deplacer(point_rouge, x+15, y-10)
+    point_rouge.write("A", color="black", font=font)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
-    point_rouge.write("   A")
 
 def B(x, y):
     pass
@@ -87,6 +86,10 @@ def create_line(x0, y0, x1, y1):
     t.pendown()
     t.goto(x1, y1)
 
+def create_line_2(x0, y0, x1, y1):
+    create_line(x0 - (200 - x_pos_axe), y0 - (200 - y_pos_axe),
+                x1 - (200 - x_pos_axe), y1 - (200 - y_pos_axe))
+
 i = -taille
 while i <= taille:
     create_line(-taille, i, taille, i)
@@ -99,14 +102,14 @@ t.color('black')
 create_line(-taille, -taille + y_pos_axe, taille, -taille + y_pos_axe)
 create_line(-taille + x_pos_axe, -taille, -taille + x_pos_axe, taille)
 # Tirets
-for i in range(-1, 4):
-    create_line(i*100 - 100, -5 - 100, i*100 - 100, 5 - 100)
-    create_line(-5 - 100, i*100 - 100, 5 - 100, i*100 - 100)
+for i in range(-1, 5):
+    create_line_2(i*100 - 100, -5 - 100, i*100 - 100, 5 - 100)
+    create_line_2(-5 - 100, i*100 - 100, 5 - 100, i*100 - 100)
 # Nom des axes et échelle
 t.penup()
-deplacer(t, 380, 5)
+deplacer(t, 405, 5)
 t.write("x")
-deplacer(t, 5, 380)
+deplacer(t, 10, 400)
 t.write("y")
 deplacer(t, 85, -25)
 t.write("100")
@@ -124,8 +127,11 @@ point_rouge = turtle.Turtle()
 point_rouge.pencolor("red")
 point_rouge.penup()
 point_rouge.speed(0)
+point_rouge.hideturtle()
 
 A(10, 20)
+xT = 10
+yT = 20
 
 # les cibles vertes et bleues
 coords_cibles = (110,  50), \
@@ -139,7 +145,7 @@ for i, coords in enumerate(coords_cibles):
     drawer.penup()
     drawer.speed(0)
     deplacer(drawer, x+15, y-10)
-    drawer.write("BCDE"[i])
+    drawer.write("BCDE"[i], font=font)
     deplacer(drawer, x, y)
     if i < 2:
         drawer.dot(10, "lightgreen")
@@ -147,12 +153,6 @@ for i, coords in enumerate(coords_cibles):
         drawer.dot(10, "cyan")
     drawer.dot(1, "black")
 deplacer(drawer, -1000, 0)
-
-def marche(x, y):
-    tortue.forward(x)
-    tortue.left(90)
-    tortue.forward(y)
-    tortue.right(90)
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible
 tortue.speed(8)
@@ -163,13 +163,10 @@ point_rouge.pendown()
 turtle.done()
 </pre>
 
-<pre id="post-src">
-point_rouge.goto(tortue.position())
-</pre>
-
 <div id="colonne-gauche">
 <pre id="user-src" contenteditable="true">
-A(10, 20)
+xT = 10
+yT = 20
 
 B(110,  50)
 C(310, 110)
@@ -181,8 +178,15 @@ E(270, 300)
 Δy = 10
 
 # Déplacement
-while visible(tortue):
-    marche(Δx, Δy)
+while xT < x_max:
+    xT = xT + Δx
+    deplacer(tortue, xT, yT)
+    yT = yT + Δy
+    deplacer(tortue, xT, yT)
+
+# Tracé de la ligne rouge
+deplacer(point_rouge, xT, yT)
+
 
 </pre>
 
@@ -191,10 +195,6 @@ while visible(tortue):
 </div>
 
 <div id="grille"><span id="turtle-div"> </span></div>
-
-<p class="nav">
-  <a href="cible3.html">Page précédente</a>
-</p>
 
 <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
 </body>
