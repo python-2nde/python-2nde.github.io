@@ -64,9 +64,10 @@ def deplacer(t, x, y):
 
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
+    deplacer(point_rouge, x+15, y-10)
+    point_rouge.write("A", color="black", font=font)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
-    point_rouge.write("   A", color="black", font=font)
 
 # Grille
 t = turtle.Turtle()
