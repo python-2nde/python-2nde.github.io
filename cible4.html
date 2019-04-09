@@ -35,6 +35,14 @@ document['run'].text = "Exécuter le programme"
 <body onload="brython(1)">
 <h1>Exercice des quatre autres cibles</h1>
 
+<p>Le point de départ est A(10, 20) et les quatre cibles sont :<p>
+<ul>
+<li>B(110,  50)</li>
+<li>C(310, 110)</li>
+<li>D( 70,  80)</li>
+<li>E(270, 300)</li>
+</ul>
+
 <pre id="pre-src">
 taille = 300  # moitié du côté du playground
 
@@ -60,18 +68,6 @@ def A(x, y):
     point_rouge.write("A", color="black", font=font)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
-
-def B(x, y):
-    pass
-
-def C(x, y):
-    pass
-
-def D(x, y):
-    pass
-
-def E(x, y):
-    pass
 
 # Grille
 t = turtle.Turtle()
@@ -165,17 +161,9 @@ turtle.done()
 
 <div id="colonne-gauche">
 <pre id="user-src" contenteditable="true">
-xT = 10
-yT = 20
-
-B(110,  50)
-C(310, 110)
-D( 70,  80)
-E(270, 300)
-
 # Valeurs à changer
 Δx = 10
-Δy = 10
+Δy = 0
 
 # Déplacement
 while xT < x_max:
