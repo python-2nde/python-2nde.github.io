@@ -53,20 +53,24 @@ turtle.set_defaults(
 x_pos_axe, y_pos_axe = 180, 180
 x_max = 2*taille
 
-font = "Arial", "30px", "normal"
+font = "Arial", "29px", "normal"
 
 def deplacer(t, x, y):
     t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
 
+def dot_and_coords(dot, x, y):
+    return dot + "(" + str(x) + ";" + str(y) + ")"
+
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
+    deplacer(point_rouge, x+18, y)
+    point_rouge.write(dot_and_coords("A", x, y), color="black", font=font)
     deplacer(point_rouge, x, y)
-    point_rouge.dot(5, "red")
-    point_rouge.write("   A", color="black", font=font)
+    point_rouge.dot(3, "red")
 
 def deplacer_cible(x, y):
-    deplacer(t, x+15, y-10)
-    t.write("B", color="black", font=font)
+    deplacer(t, x-22, y-35)
+    t.write(dot_and_coords("B", x, y), color="black", font=font)
     deplacer(t, x, y)
     t.dot(10, "lightgreen")
     t.dot(1, "black")

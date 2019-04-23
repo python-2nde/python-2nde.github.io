@@ -35,13 +35,15 @@ document['run'].text = "Exécuter le programme"
 <body onload="brython(1)">
 <h1>Exercice des quatre cibles</h1>
 
-<p>Le point de départ est A(10, 20) et les quatre cibles sont :<p>
+<div id="instr">
+<p>Le point de départ est A(10; 20) et les quatre cibles sont :<p>
 <ul>
-<li>B(250, 390)</li>
-<li>C(250, 200)</li>
-<li>D(250, 20)</li>
-<li>E(250, -100)</li>
+<li>B(110;95)</li>
+<li>C(250;200)</li>
+<li>D(250;20)</li>
+<li>E(250;-100)</li>
 </ul>
+</div>
 
 <pre id="pre-src">
 taille = 300  # moitié du côté du playground
@@ -57,7 +59,7 @@ turtle.set_defaults(
 x_pos_axe, y_pos_axe = 180, 180
 x_max = 2*taille
 
-font = "Arial", "28px", "normal"
+font = "Arial", "29px", "normal"
 
 def deplacer(t, x, y):
     t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
@@ -65,9 +67,9 @@ def deplacer(t, x, y):
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x+15, y-10)
-    point_rouge.write("A(10, 20)", color="black", font=font)
+    point_rouge.write("A(10; 20)", color="black", font=font)
     deplacer(point_rouge, x, y)
-    point_rouge.dot(5, "red")
+    point_rouge.dot(3, "red")
 
 # Grille
 t = turtle.Turtle()
@@ -128,13 +130,13 @@ xT, yT = 10, 20
 deplacer_depart(xT, yT)
 
 # les 4 cibles
-coords_cibles = (250,  390), \
+coords_cibles = (110,  95), \
                 (250,  200), \
                 (250,   20), \
                 (250, -100)
 
 drawer = turtle.Turtle()
-to_write = [ "B(250, 390)", "C(250, 200)", "D(250, 20)", "E(250, -100)"]
+to_write = ["B(110;95)", "C(250;200)", "D(250;20)", "E(250;-100)"]
 for i, coords in enumerate(coords_cibles):
     x, y = coords
     drawer.penup()
@@ -142,8 +144,7 @@ for i, coords in enumerate(coords_cibles):
     deplacer(drawer, x+13, y-5)
     drawer.write(to_write[i], color="black", font=font)
     deplacer(drawer, x, y)
-    drawer.dot(10, "lightgreen")
-    drawer.dot(1, "black")
+    drawer.dot(3, "black")
 deplacer(drawer, -1000, 0)
 
 # Vitesse de 1 à 50, 0 pour le plus vite possible

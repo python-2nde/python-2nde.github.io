@@ -41,6 +41,10 @@ button {
   display: none;
 }
 
+#instr {
+  font-size: 125%;
+}
+
 .nav {
   clear: both;
 }
