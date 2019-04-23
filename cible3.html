@@ -57,7 +57,7 @@ turtle.set_defaults(
 x_pos_axe, y_pos_axe = 180, 180
 x_max = 2*taille
 
-font = "Arial", "30px", "normal"
+font = "Arial", "28px", "normal"
 
 def deplacer(t, x, y):
     t.goto(x-taille+x_pos_axe, y-taille+y_pos_axe)
@@ -65,7 +65,7 @@ def deplacer(t, x, y):
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x+15, y-10)
-    point_rouge.write("A", color="black", font=font)
+    point_rouge.write("A(10, 20)", color="black", font=font)
     deplacer(point_rouge, x, y)
     point_rouge.dot(5, "red")
 
@@ -103,7 +103,7 @@ for i in range(-1, 5):
     create_line_2(-5 - 100, i*100 - 100, 5 - 100, i*100 - 100)
 # Nom des axes et échelle
 t.penup()
-deplacer(t, 405, 5)
+deplacer(t, 405, -15)
 t.write("x")
 deplacer(t, 10, 400)
 t.write("y")
@@ -134,12 +134,13 @@ coords_cibles = (250,  390), \
                 (250, -100)
 
 drawer = turtle.Turtle()
+to_write = [ "B(250, 390)", "C(250, 200)", "D(250, 20)", "E(250, -100)"]
 for i, coords in enumerate(coords_cibles):
     x, y = coords
     drawer.penup()
     drawer.speed(0)
-    deplacer(drawer, x+15, y-10)
-    drawer.write("BCDE"[i], color="black", font=font)
+    deplacer(drawer, x+13, y-5)
+    drawer.write(to_write[i], color="black", font=font)
     deplacer(drawer, x, y)
     drawer.dot(10, "lightgreen")
     drawer.dot(1, "black")
