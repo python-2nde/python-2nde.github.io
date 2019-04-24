@@ -36,7 +36,7 @@ document['run'].text = "Exécuter le programme"
 <h1>Exercice des quatre cibles</h1>
 
 <div id="instr">
-<p>Le point de départ est A(10; 20) et les quatre cibles sont :<p>
+<p>Le point de départ est A(10;20) et les quatre cibles sont :<p>
 <ul>
 <li>B(110;95)</li>
 <li>C(250;200)</li>
@@ -67,7 +67,7 @@ def deplacer(t, x, y):
 def deplacer_depart(x, y):
     deplacer(tortue, x, y)
     deplacer(point_rouge, x+15, y-10)
-    point_rouge.write("A(10; 20)", color="black", font=font)
+    point_rouge.write("A(10;20)", color="black", font=font)
     deplacer(point_rouge, x, y)
     point_rouge.dot(3, "red")
 
